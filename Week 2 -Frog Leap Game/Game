@@ -1,13 +1,11 @@
-#Step1: assign positions list and string for the reference index
+#assign positions list and string for the reference index
 Positions = list(['G', 'G', 'G', '-', 'B', 'B', 'B'])
 print("###### Always enter an integer less that 7 ######")
 print("[ 0 ,  1 ,  2 ,  3 ,  4 ,  5 ,  6 ]")
-
-#step2: Create the final winning condition
 positions=list(['G','G','G','-','B','B','B'])
 print(positions)
 
-
+#check validilty of the positions
 def is_invalid(pos):
     if(pos<0 or pos>6):
        return True
@@ -27,33 +25,41 @@ def is_invalid(pos):
             return False
         else:
             return True
+
 def make_a_move(pos):
     pos2 = 0
+#Check for conditions if green frog and move it to right
     if positions[pos] == 'G':
         if positions[pos + 1] == '-':
             pos2 = (pos + 1)
         elif positions[pos + 2] == '-':
             pos2 = (pos + 2)
+#Check for conditions if Brown frog and move it to left
     elif positions[pos] == 'B':
             if positions[pos - 1] == '-':
                 pos2 = (pos - 1)
             elif positions[pos - 2] == '-':
                 pos2 = (pos - 2)
+ # Swap empty position with the selected position
     positions[pos], positions[pos2] = positions[pos2], positions[pos]
+
+#for a infinite loop play the game and break the loop if quit
 while(True):
       pos=input("press q if u want to quit/else enter position")
       if(pos=='q'):
         print("You lose")
         break
+#convert input to integer 
       pos=int(pos)
       if  is_invalid(pos):
           print("Invalid move")
           continue
       else:
           make_a_move(pos)
-
+#print the current status after each iteration
       print("[ 0 ,  1 ,  2 ,  3 ,  4 ,  5 ,  6 ]")
       print(positions)
+#if the winning condition and position list is equal, the person wins
       if positions == ['B', 'B', 'B', '-', 'G', 'G', 'G']:
           print("YOU WIN")
           break
